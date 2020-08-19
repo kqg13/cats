@@ -2,21 +2,20 @@ import { useState } from 'react';
 import theCat from '../api/theCat';
 
 const useCats = (defaultCategoryID, defaultImageType) => {
-  const [catsResponse, setCatsResponse] = useState([]);
+  const [images, setImages] = useState([]);
 
   const search = async (category, image) => {
     const response = await theCat.get('/search', {
       params: {
-        limit: 3,
+        limit: 15,
         category_ids: category,
         mime_types: image
       }
     });
-
-    setCatsResponse(response.data);
+    setImages(response.data);
   };
 
-  return [catsResponse, search];
+  return [images, search];
 };
 
 export default useCats;

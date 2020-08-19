@@ -60,21 +60,16 @@ const category_ids_options = [
 const App = () => {
   const [selCategory, setSelCategory] = useState(category_ids_options[0]);
   const [selMime, setSelMime] = useState(mime_types_options[0]);
-  const [catsResponse, search] = useCats(null, []);
+  const [images, search] = useCats(null, []);
   // Initialize dropdown values
   const [categoryVal, setCategoryVal] = useState(0);
   const [mimeVal, setMimeVal] = useState('');
 
   useEffect(() => {
-    console.log("catsResponse: " + catsResponse);
-    //console.log(Object.keys(catsResponse));
-    //console.log(catsResponse.data[0].url);
-  });
+    // console.log("images: " + images);
+  }, [images]);
 
   useEffect(() => {
-    console.log("useEffect categoryVal: " + categoryVal);
-    console.log("useEffect mimeVal: " + mimeVal);
-
     if (categoryVal || mimeVal) {
       search(categoryVal, mimeVal);
     }
@@ -82,6 +77,7 @@ const App = () => {
 
   return (
     <div className="ui container" style={{marginTop: '10px'}}>
+      <h1>It's Caturday!</h1>
       <Dropdown
         label="Select category"
         options={category_ids_options}
@@ -96,7 +92,8 @@ const App = () => {
         onSelectedChange={setSelMime}
         onSelectedValueChange={setMimeVal}
       />
-      <CatList />
+      <br/>
+      <CatList images={images}/>
     </div>
   );
 };

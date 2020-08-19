@@ -6,15 +6,14 @@ const Dropdown = ({label, options, selected, onSelectedChange, onSelectedValueCh
 
   useEffect(() => {
     const onBodyClick = e => {
+      // body event listener should not do anything if we're inside the component
       if (ref.current.contains(e.target)) {
-        // body event listener should not do anything if we're inside component
         return;
       }
       setOpen(false);
     }
     document.body.addEventListener('click', onBodyClick);
-    // cleanup to remove eventListener:
-    // called right before the _next_ time useEffect is called
+    // cleanup to remove eventListener: called right before the _next_ time useEffect is called
     return () => {
       document.body.removeEventListener('click', onBodyClick)
     };
@@ -27,19 +26,13 @@ const Dropdown = ({label, options, selected, onSelectedChange, onSelectedValueCh
 
     const onDropDownChange = e => {
       onSelectedChange(option);
-
-      if (option.value && typeof(option.value) === 'number') {
-        onSelectedValueChange(option.value);
-      } else if (option.value && typeof(option.value) === 'string') {
+      if (option.value) {
         onSelectedValueChange(option.value);
       }
     }
 
     return (
-      <div key={option.value}
-           className="item"
-           onClick={onDropDownChange}
-      >
+      <div key={option.value} className="item" onClick={onDropDownChange}>
         {option.label}
       </div>
     );
