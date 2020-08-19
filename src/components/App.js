@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Dropdown from './Dropdown';
 import CatList from './CatList';
-import theCat from '../api/theCat';
 import useCats from '../hooks/useCats';
 
 const mime_types_options = [
@@ -61,20 +60,25 @@ const category_ids_options = [
 const App = () => {
   const [selCategory, setSelCategory] = useState(category_ids_options[0]);
   const [selMime, setSelMime] = useState(mime_types_options[0]);
-  const [catsResponse, search] = useCats(5, []);
+  const [catsResponse, search] = useCats(null, []);
   // Initialize dropdown values
   const [categoryVal, setCategoryVal] = useState(0);
   const [mimeVal, setMimeVal] = useState('');
 
   useEffect(() => {
     console.log("catsResponse: " + catsResponse);
-  }, [catsResponse]);
+    //console.log(Object.keys(catsResponse));
+    //console.log(catsResponse.data[0].url);
+  });
 
   useEffect(() => {
     console.log("useEffect categoryVal: " + categoryVal);
     console.log("useEffect mimeVal: " + mimeVal);
+
+    if (categoryVal || mimeVal) {
+      search(categoryVal, mimeVal);
+    }
   }, [categoryVal, mimeVal]);
-  
 
   return (
     <div className="ui container" style={{marginTop: '10px'}}>

@@ -6,8 +6,5 @@ export default axios.create({
   baseURL: 'https://api.thecatapi.com/v1/images',
   headers: {
     'x-api-key': KEY
-  },
-  params: {
-    limit: 10,
   }
 });

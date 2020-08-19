@@ -20,7 +20,6 @@ const Dropdown = ({label, options, selected, onSelectedChange, onSelectedValueCh
     };
   }, []);
 
-
   const renderedOptions = options.map(option => {
     if (option.value === selected.value || !option.value) {
       return null;
@@ -34,9 +33,6 @@ const Dropdown = ({label, options, selected, onSelectedChange, onSelectedValueCh
       } else if (option.value && typeof(option.value) === 'string') {
         onSelectedValueChange(option.value);
       }
-
-      // console.log("categoryVal: " + '');
-      // console.log("mimeVal: " + '');
     }
 
     return (
